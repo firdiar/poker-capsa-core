@@ -119,10 +119,11 @@ namespace Pker
 
             LastCard = default;
             Turn = LastWinner;
+            OnCardPlayed.Invoke(LastCard);
 
             for (int i = 0; i < pokerPlayers.Length; i++)
             {
-                pokerPlayers[i].UpdateCard(allDeck.GetSubArray(i, 13));
+                pokerPlayers[i].UpdateCard(allDeck.GetSubArray(i * 13, 13));
             }
             allDeck.Dispose();
 
@@ -160,7 +161,7 @@ namespace Pker
             {
                 LastCard = combination;
                 PokerPlayers[Turn].UseCard(indexes);
-                
+
                 OnPlayerAction.Invoke(Turn, PlayerAction.Play);
                 OnCardPlayed.Invoke(combination);
 
@@ -173,9 +174,12 @@ namespace Pker
                 {
                     EndGame();
                 }
+                return true;
             }
-
-            return isValid;
+            else
+            {
+                return false;
+            }
         }
 
         private void EndSession()
@@ -185,6 +189,7 @@ namespace Pker
             OnPlayerWinSession.Invoke(Turn);
         }
 
+        [Button]
         private void EndGame() 
         {
             gameState = GameState.EndGame;

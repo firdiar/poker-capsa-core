@@ -44,7 +44,7 @@ namespace Pker.UI
             {
                 var poolObj = pool.Get();
                 var trans = poolObj.transform;
-                trans.SetParent(parentHolder);
+                trans.SetAsLastSibling();
                 trans.localScale = Vector3.one;
                 poolObj.Init(item);
 

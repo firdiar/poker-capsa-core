@@ -39,6 +39,7 @@ namespace Pker
 
         public void UpdateCard(NativeArray<Card> initCards) 
         {
+            cards.Clear();
             foreach (var card in initCards)
             {
                 cards.Add(card);
